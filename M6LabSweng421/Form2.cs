@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Runtime.Intrinsics;
 using System.Windows.Forms;
@@ -8,19 +8,19 @@ using System.Windows.Forms.VisualStyles;
 namespace M6LabSweng421
 {
 
-    public partial class Form1 : Form
+    public partial class Form2 : Form
     {
 
-        
+
         private bool drawDotFlag = false;
         private bool clear = false;
         private List<Vertex> vertices = new List<Vertex>(); //store vertices
         private List<Edge> edges = new List<Edge>(); //store edges
         private Graph_Manager manager = new Graph_Manager();
-        private List<Graph> graphs = new List<Graph>(); 
+        private List<Graph> graphs = new List<Graph>();
 
 
-        public Form1()
+        public Form2()
         {
             InitializeComponent();
 
@@ -38,7 +38,7 @@ namespace M6LabSweng421
             Vertex v2 = new Vertex(100, 400);
             //make an if statement to trigger this condition
             Edge e1 = new Edge(0, v1, v2);
-           
+
 
             if (drawDotFlag)
             {
@@ -104,11 +104,11 @@ namespace M6LabSweng421
 
                     vertices.Clear();
                 }
-                
+
 
             }
 
-            
+
 
         }
 
@@ -173,7 +173,7 @@ namespace M6LabSweng421
             listBox1.Items.Clear();
 
             //add id of graph to listbox
-            
+
             foreach (Graph graph in manager.Graphs)
             {
                 listBox1.Items.Add($"Graph {graph.ID}");
@@ -210,7 +210,7 @@ namespace M6LabSweng421
             clearCanvas();
 
 
-            
+
 
         }
 
@@ -220,8 +220,8 @@ namespace M6LabSweng421
         private void button3_Click_1(object sender, EventArgs e)
         {
 
-            
-            createG = true; 
+
+            createG = true;
 
 
         }
