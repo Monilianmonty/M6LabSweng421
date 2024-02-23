@@ -17,8 +17,9 @@ namespace M6LabSweng421
         private List<Vertex> vertices = new List<Vertex>(); //store vertices
         private List<Edge> edges = new List<Edge>(); //store edges
         private Graph_Manager manager = new Graph_Manager();
-        private List<Graph> graphs = new List<Graph>(); 
+        private List<Graph> graphs = new List<Graph>();
 
+        
 
         public Form1()
         {
@@ -47,15 +48,18 @@ namespace M6LabSweng421
 
             }
 
-            if (createG)
+            if (listBox1.SelectedIndex == 0)
             {
+                
                 int selectedIndex = listBox1.SelectedIndex;
 
                 //check graph selection
                 if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
                 {
                     //drawgraph
+                    Console.WriteLine(selectedIndex);
                     Graph selectedGraph = manager.Graphs[selectedIndex];
+
                     selectedGraph.print(e.Graphics); //uses print to draw a graph
                 }
             }
@@ -187,7 +191,10 @@ namespace M6LabSweng421
         }
 
 
-
+        public int GetSelectedIndex()
+        {
+            return listBox1.SelectedIndex;
+        }
 
 
 

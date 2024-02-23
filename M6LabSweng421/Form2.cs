@@ -16,7 +16,7 @@ namespace M6LabSweng421
         private bool clear = false;
         private List<Vertex> vertices = new List<Vertex>(); //store vertices
         private List<Edge> edges = new List<Edge>(); //store edges
-        private Graph_Manager manager = new Graph_Manager();
+        private Graph_Manager manager;
         private List<Graph> graphs = new List<Graph>();
 
 
@@ -30,39 +30,7 @@ namespace M6LabSweng421
 
         }
 
-        protected void OnPaint(PaintEventArgs e, MouseEventArgs g)
-        {
-            base.OnPaint(e);
-
-            Vertex v1 = new Vertex(100, 100);
-            Vertex v2 = new Vertex(100, 400);
-            //make an if statement to trigger this condition
-            Edge e1 = new Edge(0, v1, v2);
-
-
-            if (drawDotFlag)
-            {
-                v1.Draw(e.Graphics);
-                e1.Draw(e.Graphics);
-
-            }
-
-            if (createG)
-            {
-                int selectedIndex = listBox1.SelectedIndex;
-
-                //check graph selection
-                if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
-                {
-                    //drawgraph
-                    Graph selectedGraph = manager.Graphs[selectedIndex];
-                    selectedGraph.print(e.Graphics); //uses print to draw a graph
-                }
-            }
-
-
-
-        }
+        
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
@@ -119,13 +87,11 @@ namespace M6LabSweng421
         {
             int k = 0;
             //saves the graphs current vertices and edges
-            Graph nG = new Graph(k, vertices, edges);
+            Graph nG = new Graph(k, vertices, edges);       //at the moment that i click save graph
 
-            //using graphs instance to store graphs:testing due to bug with calling saved graph
-            //graphs.Add(nG);
-
-            //the manager has a list of graphs as its attribute that it manages. save graph simply adds a graph to that list of graphs
-            manager.saveGraph(nG);
+           
+            
+            manager.saveGraph(nG);      //using the debugger found out that the edges are being stored here within the graph manager
 
             //updates the list of graphs whenever graph is saved
             UpdateGraphListBox();
@@ -198,10 +164,27 @@ namespace M6LabSweng421
 
 
 
-        //non imponrta nt
+        //create graph button
         private void button3_Click(object sender, EventArgs e)
         {
+            int selectedIndex = listBox1.SelectedIndex;
+            int temp = manager.Graphs.Count;
+            //check graph selection
+            if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
+            {
 
+                //drawgraph
+                Graph selectedGraph = manager.Graphs.ElementAt(selectedIndex);
+                List<Edge> edges = selectedGraph.edges;     //for some reason the edges in selectedGraph.edges is not getting the edges at that index
+                //selectedGraph.print(e.Graphics); //uses  daw print to draw a graph
+                using (Graphics g = this.CreateGraphics())
+                {
+                    foreach (Edge edge in edges)
+                    {
+                        edge.Draw(g);
+                    }
+                }
+            }
         }
 
         //list box that tracks all graphs 
@@ -221,8 +204,10 @@ namespace M6LabSweng421
         {
 
 
-            createG = true;
+            //createG = true;
 
+            
+            
 
         }
     }

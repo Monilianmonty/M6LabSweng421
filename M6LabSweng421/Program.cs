@@ -112,11 +112,11 @@ namespace M6LabSweng421
         public List<Vertex> vertices { get; set; }
         public List<Edge> edges { get; set; }
 
-        public Graph(int ID, List <Vertex> vertices,List<Edge> edges ) 
+        public Graph(int ID, List <Vertex> v,List<Edge> e ) 
         {
             this.ID = ++lastID;
-            this.vertices = new List<Vertex>();
-            this.edges = new List<Edge>();
+            this.vertices = v;
+            this.edges = e;
 
         }
         /*
@@ -155,11 +155,12 @@ namespace M6LabSweng421
         }
 
         // Property to provide read-only access to graphs
+        
         public List<Graph> Graphs
         {
             get { return graphs; }
         }
-
+        
        
         
 
@@ -223,7 +224,7 @@ namespace M6LabSweng421
         static void Main()
         {
 
-            
+           
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
