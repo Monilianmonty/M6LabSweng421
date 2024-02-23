@@ -18,7 +18,7 @@ namespace M6LabSweng421
         private List<Edge> edges = new List<Edge>(); //store edges
         private Graph_Manager manager;
         private List<Graph> graphs = new List<Graph>();
-
+        
 
         public Form2()
         {
@@ -87,12 +87,12 @@ namespace M6LabSweng421
         {
             int k = 0;
             //saves the graphs current vertices and edges
-            Graph nG = new Graph(k, vertices, edges);       //at the moment that i click save graph
+            Graph nG = new Graph(k, edges);       //at the moment that i click save graph
 
            
             
             manager.saveGraph(nG);      //using the debugger found out that the edges are being stored here within the graph manager
-
+           
             //updates the list of graphs whenever graph is saved
             UpdateGraphListBox();
 

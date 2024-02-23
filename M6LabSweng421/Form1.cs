@@ -123,7 +123,7 @@ namespace M6LabSweng421
         {
             int k = 0;
             //saves the graphs current vertices and edges
-            Graph nG = new Graph(k, vertices, edges);
+            Graph nG = new Graph(k, edges);
 
             //using graphs instance to store graphs:testing due to bug with calling saved graph
             //graphs.Add(nG);

@@ -109,24 +109,17 @@ namespace M6LabSweng421
 
         private static int lastID = 0;
         public int ID { get; set; }
-        public List<Vertex> vertices { get; set; }
+        
         public List<Edge> edges { get; set; }
 
-        public Graph(int ID, List <Vertex> v,List<Edge> e ) 
+        public Graph(int ID,List<Edge> e ) 
         {
             this.ID = ++lastID;
-            this.vertices = v;
+            
             this.edges = e;
 
         }
-        /*
-        public void setVandE(List<Vertex> v, List<Edge> e)
-        {
-            this.vertices = v;
-            this.edges = e;
-
-        }
-        */
+       
 
         public void print(Graphics g)
         {
@@ -170,7 +163,7 @@ namespace M6LabSweng421
             int id = 0;
             List<Vertex> vertices = new List<Vertex>();
             List<Edge> edges = new List<Edge>();
-            Graph g1 = new Graph(id, vertices, edges);
+            Graph g1 = new Graph(id, edges);
 
             return g1;
         }
