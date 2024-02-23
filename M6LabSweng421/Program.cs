@@ -139,34 +139,52 @@ namespace M6LabSweng421
     public class Graph_Manager
     {
 
-        private List<Graph> graphs { get; set; }
+        private static Graph_Manager instance;
+        public List<Graph> graphs { get; set; }
 
-        public Graph_Manager()
+        private Graph_Manager()
         {
-            this.graphs = new List<Graph>();
+            graphs = new List<Graph>();
 
         }
 
         // Property to provide read-only access to graphs
-        
         public List<Graph> Graphs
         {
             get { return graphs; }
         }
-        
-       
-        
 
+        public static Graph_Manager GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new Graph_Manager();
+            }
+            return instance;
+        }
+
+        /*
+        public static Append(Graph g)
+        {
+
+            graphs[0] = g;
+        }
+        */
+
+        /*
         public Graph CreateBlankGraph()
         {
             //create a blank graph
             int id = 0;
             List<Vertex> vertices = new List<Vertex>();
             List<Edge> edges = new List<Edge>();
-            Graph g1 = new Graph(id, edges);
+            Graph g1 = new Graph(id, vertices, edges);
 
             return g1;
         }
+        */
+
+
         //add graph
         public void saveGraph(Graph g)
         {
@@ -175,11 +193,11 @@ namespace M6LabSweng421
 
         }
 
-        
 
 
 
-        
+
+
     }
 
     public class MultiFormContext : ApplicationContext

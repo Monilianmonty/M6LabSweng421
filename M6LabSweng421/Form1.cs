@@ -16,8 +16,8 @@ namespace M6LabSweng421
         private bool clear = false;
         private List<Vertex> vertices = new List<Vertex>(); //store vertices
         private List<Edge> edges = new List<Edge>(); //store edges
-        private Graph_Manager manager = new Graph_Manager();
-        private List<Graph> graphs = new List<Graph>();
+        private Graph_Manager manager = Graph_Manager.GetInstance();
+
 
         
 
@@ -25,7 +25,7 @@ namespace M6LabSweng421
         {
             InitializeComponent();
 
-            manager = new Graph_Manager();
+           
 
             this.MouseClick += Form1_MouseClick; //use mouseClick event
 

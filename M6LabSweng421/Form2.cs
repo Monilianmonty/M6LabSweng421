@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.Intrinsics;
 using System.Windows.Forms;
@@ -16,15 +17,15 @@ namespace M6LabSweng421
         private bool clear = false;
         private List<Vertex> vertices = new List<Vertex>(); //store vertices
         private List<Edge> edges = new List<Edge>(); //store edges
-        private Graph_Manager manager;
-        private List<Graph> graphs = new List<Graph>();
+        private Graph_Manager manager = Graph_Manager.GetInstance();
+       
         
 
         public Form2()
         {
             InitializeComponent();
 
-            manager = new Graph_Manager();
+           
 
             this.MouseClick += Form1_MouseClick; //use mouseClick event
 
@@ -88,8 +89,9 @@ namespace M6LabSweng421
             int k = 0;
             //saves the graphs current vertices and edges
             Graph nG = new Graph(k, edges);       //at the moment that i click save graph
-
-           
+            Debug.WriteLine(Graph_Manager.GetInstance());
+            Debug.WriteLine(Graph_Manager.GetInstance().Graphs);
+            manager.Graphs.Add(nG);
             
             manager.saveGraph(nG);      //using the debugger found out that the edges are being stored here within the graph manager
            
