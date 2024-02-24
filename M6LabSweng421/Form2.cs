@@ -88,7 +88,6 @@ namespace M6LabSweng421
         //clicking save graph will add the graph to listbox with index
         private void button1_Click(object sender, EventArgs e)
         {
-
             int k = 0;
             
             //saves the graphs current vertices and edges
@@ -98,8 +97,6 @@ namespace M6LabSweng421
             Debug.WriteLine(Graph_Manager.GetInstance());
             Debug.WriteLine(Graph_Manager.GetInstance().Graphs);
 
-
-            
             manager.saveGraph(nG);      //using the debugger found out that the edges are being stored here within the graph manager
             
 
@@ -127,6 +124,7 @@ namespace M6LabSweng421
         public void clearCanvas()
         {
             vertices.Clear();
+
             edges.Clear(); ;
 
             Invalidate();
@@ -219,6 +217,7 @@ namespace M6LabSweng421
             
             
             int selectedIndex = listBox1.SelectedIndex;
+
             if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
             {
                 pictureBox1.Image = bmL[listBox1.SelectedIndex];
@@ -246,6 +245,7 @@ namespace M6LabSweng421
 
             //get the selected index and update the bitmap
             int selectedIndex = listBox1.SelectedIndex;
+
             if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
             {
                 pictureBox1.Image = bmL[listBox1.SelectedIndex];
@@ -293,12 +293,15 @@ namespace M6LabSweng421
             int selectedIndex = listBox1.SelectedIndex;
             if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
             {
-                // Retrieve the selected graph from the list
+               
                 Graph selectedGraph = manager.Graphs[selectedIndex];
-                int rID = manager.GetRecentID();
+                
+
+
                 // Create a new graph object
                 Graph copiedGraph = new Graph(selectedGraph.ID, selectedGraph.edges);
                 Graph.incrementID();    //only update ID when adding to listBox
+
                 manager.Graphs.Add(copiedGraph);
 
                 //make a copy of the bitmap selected
@@ -307,7 +310,7 @@ namespace M6LabSweng421
                 //add bitmap to bitmap list
                 bmL.Add(copyBitmap);
 
-                // Update the list box to reflect the addition of the new graph
+                
                 UpdateGraphListBox();
             }
         }

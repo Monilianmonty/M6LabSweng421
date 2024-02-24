@@ -211,18 +211,7 @@ namespace M6LabSweng421
             return instance;
         }
 
-       public int GetRecentID()
-        {
-            if (graphs.Count > 0)
-            {
-                return graphs[graphs.Count - 1].ID;
-            }
-            else
-            {
-                // Handle case where no graphs are present
-                return -1; // or throw an exception, return a default value, etc.
-            }
-        }
+       
 
 
         //add graph
