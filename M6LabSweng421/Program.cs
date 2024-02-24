@@ -10,7 +10,7 @@ namespace M6LabSweng421
 
         public static int lastID = 0;
 
-        public Boolean t = false;
+        
         public int ID { get; set; }
         public int x_coordinate { get; set; }
         public int y_coordinate { get; set; }
@@ -139,10 +139,10 @@ namespace M6LabSweng421
                 
                 g.Clear(Color.Beige); 
 
-                // Draw the edges of the graph onto the bitmap
+                //draw edges of bitmap
                 foreach (Edge edge in edges)
                 {
-                    edge.Draw(g); // Draw each edge onto the bitmap
+                    edge.Draw(g); //draw each edge onto bitmap
                 }
             }
 
@@ -183,7 +183,7 @@ namespace M6LabSweng421
 
         }
 
-        // Property to provide read-only access to graphs
+        //getter for list of graphs
         public List<Graph> Graphs
         {
             get { return graphs; }
@@ -198,26 +198,7 @@ namespace M6LabSweng421
             return instance;
         }
 
-        /*
-        public static Append(Graph g)
-        {
-
-            graphs[0] = g;
-        }
-        */
-
-        /*
-        public Graph CreateBlankGraph()
-        {
-            //create a blank graph
-            int id = 0;
-            List<Vertex> vertices = new List<Vertex>();
-            List<Edge> edges = new List<Edge>();
-            Graph g1 = new Graph(id, vertices, edges);
-
-            return g1;
-        }
-        */
+       
 
 
         //add graph

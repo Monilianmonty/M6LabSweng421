@@ -12,10 +12,6 @@ namespace M6LabSweng421
 
     public partial class Form2 : Form
     {
-
-
-        private bool drawDotFlag = false;
-        private bool clear = false;
         private List<Vertex> vertices = new List<Vertex>(); //store vertices
         private List<Edge> edges = new List<Edge>(); //store edges
         private Graph_Manager manager;
@@ -33,8 +29,7 @@ namespace M6LabSweng421
 
             bmL = new List<Bitmap>();
 
-            // Attach button1_Click event handler to another button or control
-
+           
 
         }
 
@@ -210,7 +205,7 @@ namespace M6LabSweng421
 
 
 
-        //create graph button
+        //print graph button
         private void button3_Click(object sender, EventArgs e)
         {
             int k = 0;
@@ -236,7 +231,7 @@ namespace M6LabSweng421
 
         }
 
-        bool createG = false;
+        
 
         //creates graph based on whats picked in listbox
         private void button3_Click_1(object sender, EventArgs e)
