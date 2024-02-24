@@ -9,6 +9,7 @@ using System.Windows.Forms.VisualStyles;
 namespace M6LabSweng421
 {
 
+
     public partial class Form2 : Form
     {
 
@@ -17,21 +18,27 @@ namespace M6LabSweng421
         private bool clear = false;
         private List<Vertex> vertices = new List<Vertex>(); //store vertices
         private List<Edge> edges = new List<Edge>(); //store edges
-        private Graph_Manager manager = Graph_Manager.GetInstance();
-       
-        
+        private Graph_Manager manager;
+        private List<Bitmap> bmL;
+
+
 
         public Form2()
         {
             InitializeComponent();
 
-           
+            manager = Graph_Manager.GetInstance();
 
             this.MouseClick += Form1_MouseClick; //use mouseClick event
 
+            bmL = new List<Bitmap>();
+
+            // Attach button1_Click event handler to another button or control
+
+
         }
 
-        
+
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
@@ -86,22 +93,34 @@ namespace M6LabSweng421
         //clicking save graph will add the graph to listbox with index
         private void button1_Click(object sender, EventArgs e)
         {
+
             int k = 0;
             //saves the graphs current vertices and edges
-            Graph nG = new Graph(k, edges);       //at the moment that i click save graph
+            Graph nG = new Graph(k, edges);
             Debug.WriteLine(Graph_Manager.GetInstance());
             Debug.WriteLine(Graph_Manager.GetInstance().Graphs);
+
             //manager.Graphs.Add(nG);
-            
+
             manager.saveGraph(nG);      //using the debugger found out that the edges are being stored here within the graph manager
-           
+            Debug.WriteLine(manager.Graphs[0].edges.Count());       //showing correct number of edges within output as well
             Debug.WriteLine(Graph_Manager.GetInstance().Graphs.IndexOf(nG)); //shows that the index is being incremented within the graph manager evert time a new graph is saved
-            //updates the list of graphs whenever graph is saved
+                                                                             //updates the list of graphs whenever graph is saved
             UpdateGraphListBox();
+
+            Bitmap gb = nG.CreateGraphBitmap(); //storing currently saved graph within a bitmap
+
+            bmL.Add(gb);            //adding graph bitmap to list of bitmap
+
+
+
 
             clearCanvas();
 
+
+
             Invalidate();
+
 
 
         }
@@ -114,11 +133,45 @@ namespace M6LabSweng421
             Invalidate();
         }
 
+
+        private void DrawEdgesOnBitmap(Bitmap bitmap, List<Edge> edges)
+        {
+            using (Graphics g = Graphics.FromImage(bitmap))
+            {
+
+
+
+                //draw edges ontobitmap
+                foreach (Edge edge in edges)
+                {
+                    edge.Draw(g);
+                }
+            }
+        }
+
+        //update graph button
         private void button2_Click(object sender, EventArgs e)
         {
-            //clear = true;
+            int selectedIndex = listBox1.SelectedIndex;
 
+            if (selectedIndex >= 0 && selectedIndex < bmL.Count)
+            {
 
+                Bitmap selectedBitmap = bmL[selectedIndex];
+
+                //get graph associated with the selected bitmap
+                if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
+                {
+                    Graph selectedGraph = manager.Graphs[selectedIndex];
+                    List<Edge> edges = selectedGraph.edges;
+
+                    //draw new edges on bitmap
+                    DrawEdgesOnBitmap(selectedBitmap, edges);
+
+                    //update picturebox
+                    pictureBox1.Image = selectedBitmap;
+                }
+            }
         }
         //not importnatn
         private void Form1_Load(object sender, EventArgs e)
@@ -147,18 +200,8 @@ namespace M6LabSweng421
             {
                 listBox1.Items.Add($"Graph {graph.ID}");
             }
-            /*
-            foreach (Graph g in graphs)
-            {
-                listBox1.Items.Add($"Graph {g.ID}");
-            }
-            */
+            
         }
-
-
-
-
-
 
 
 
@@ -170,29 +213,17 @@ namespace M6LabSweng421
         //create graph button
         private void button3_Click(object sender, EventArgs e)
         {
+            int k = 0;
+            Graph nU = new Graph(k, edges);
+
             int selectedIndex = listBox1.SelectedIndex;
-            
-            int temp = Graph_Manager.GetInstance().Graphs.Count;
-                     //check graph selection
             if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
             {
+                pictureBox1.Image = bmL[listBox1.SelectedIndex];
 
-                //drawgraph
-                Graph selectedGraph = manager.Graphs.ElementAt(selectedIndex);
-                List<Edge> edges = selectedGraph.edges;     //for some reason the edges in selectedGraph.edges is not getting the edges at that index
-                //so now what we must do is to somehow pass the edges to here ********
-                using (Graphics g = this.CreateGraphics())
-                {
-                    manager.graphs[selectedIndex].print(g);
-                    Debug.WriteLine(manager.graphs[selectedIndex].edges.Count());   //for some reason the count is still 0 for the edges?
-                    /*
-                    foreach (Edge edge in edges)
-                    {
-                        edge.Draw(g);
-                    }
-                    */
-                }
             }
+
+
         }
 
         //list box that tracks all graphs 
@@ -211,12 +242,72 @@ namespace M6LabSweng421
         private void button3_Click_1(object sender, EventArgs e)
         {
 
+            //get the selected index and update the bitmap
+            int selectedIndex = listBox1.SelectedIndex;
+            if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
+            {
+                pictureBox1.Image = bmL[listBox1.SelectedIndex];
 
-            //createG = true;
+            }
 
-            
-            
 
+
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        //this button is to copy a currently existing graph
+        private void button4_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = listBox1.SelectedIndex;
+            if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
+            {
+                // Retrieve the selected graph from the list
+                Graph selectedGraph = manager.Graphs[selectedIndex];
+
+                // Create a new graph object
+                Graph copiedGraph = new Graph(selectedGraph.ID, selectedGraph.edges);
+
+                manager.Graphs.Add(copiedGraph);
+
+                //make a copy of the bitmap selected
+                Bitmap copyBitmap = new Bitmap(bmL[selectedIndex]);
+
+                //add bitmap to bitmap list
+                bmL.Add(copyBitmap);
+
+                // Update the list box to reflect the addition of the new graph
+                UpdateGraphListBox();
+            }
         }
     }
 }

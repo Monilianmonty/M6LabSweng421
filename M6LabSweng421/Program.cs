@@ -87,8 +87,7 @@ namespace M6LabSweng421
             pen.Dispose();
         }
 
-
-
+        
 
         public void Draw(Graphics g)
         {
@@ -112,14 +111,45 @@ namespace M6LabSweng421
         
         public List<Edge> edges { get; set; }
 
+      
+
+
         public Graph(int ID,List<Edge> e ) 
         {
             this.ID = ++lastID;
             
             this.edges = e;
 
+          
+
         }
-       
+
+        public Bitmap CreateGraphBitmap()
+        {
+            //width and height of bitmap
+            int width = Screen.PrimaryScreen.WorkingArea.Width;
+            int height = Screen.PrimaryScreen.WorkingArea.Height;
+
+            //create map
+            Bitmap bitmap = new Bitmap(width, height);
+
+           
+            using (Graphics g = Graphics.FromImage(bitmap))
+            {
+                
+                g.Clear(Color.Beige); 
+
+                // Draw the edges of the graph onto the bitmap
+                foreach (Edge edge in edges)
+                {
+                    edge.Draw(g); // Draw each edge onto the bitmap
+                }
+            }
+
+            return bitmap;
+        }
+
+
 
         public void print(Graphics g)
         {
@@ -130,6 +160,11 @@ namespace M6LabSweng421
             }
 
         }
+
+        
+
+        
+
 
 
 
@@ -239,7 +274,7 @@ namespace M6LabSweng421
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new MultiFormContext(new Form1(), new Form2()));
+            Application.Run(new MultiFormContext(new Form2()));
         }
     }
 }
