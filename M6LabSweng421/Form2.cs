@@ -91,10 +91,11 @@ namespace M6LabSweng421
             Graph nG = new Graph(k, edges);       //at the moment that i click save graph
             Debug.WriteLine(Graph_Manager.GetInstance());
             Debug.WriteLine(Graph_Manager.GetInstance().Graphs);
-            manager.Graphs.Add(nG);
+            //manager.Graphs.Add(nG);
             
             manager.saveGraph(nG);      //using the debugger found out that the edges are being stored here within the graph manager
            
+            Debug.WriteLine(Graph_Manager.GetInstance().Graphs.IndexOf(nG)); //shows that the index is being incremented within the graph manager evert time a new graph is saved
             //updates the list of graphs whenever graph is saved
             UpdateGraphListBox();
 
@@ -170,21 +171,26 @@ namespace M6LabSweng421
         private void button3_Click(object sender, EventArgs e)
         {
             int selectedIndex = listBox1.SelectedIndex;
-            int temp = manager.Graphs.Count;
-            //check graph selection
+            
+            int temp = Graph_Manager.GetInstance().Graphs.Count;
+                     //check graph selection
             if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
             {
 
                 //drawgraph
                 Graph selectedGraph = manager.Graphs.ElementAt(selectedIndex);
                 List<Edge> edges = selectedGraph.edges;     //for some reason the edges in selectedGraph.edges is not getting the edges at that index
-                //selectedGraph.print(e.Graphics); //uses  daw print to draw a graph
+                //so now what we must do is to somehow pass the edges to here ********
                 using (Graphics g = this.CreateGraphics())
                 {
+                    manager.graphs[selectedIndex].print(g);
+                    Debug.WriteLine(manager.graphs[selectedIndex].edges.Count());   //for some reason the count is still 0 for the edges?
+                    /*
                     foreach (Edge edge in edges)
                     {
                         edge.Draw(g);
                     }
+                    */
                 }
             }
         }
