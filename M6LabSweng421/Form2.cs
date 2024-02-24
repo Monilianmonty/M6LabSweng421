@@ -16,7 +16,7 @@ namespace M6LabSweng421
         private List<Edge> edges = new List<Edge>(); //store edges
         private Graph_Manager manager;
         private List<Bitmap> bmL;
-
+        
 
 
         public Form2()
@@ -24,7 +24,7 @@ namespace M6LabSweng421
             InitializeComponent();
 
             manager = Graph_Manager.GetInstance();
-
+            
             this.MouseClick += Form1_MouseClick; //use mouseClick event
 
             bmL = new List<Bitmap>();
@@ -90,14 +90,19 @@ namespace M6LabSweng421
         {
 
             int k = 0;
+            
             //saves the graphs current vertices and edges
             Graph nG = new Graph(k, edges);
+            Graph.incrementID();    //only increment id when updating listBox
+
             Debug.WriteLine(Graph_Manager.GetInstance());
             Debug.WriteLine(Graph_Manager.GetInstance().Graphs);
 
-            //manager.Graphs.Add(nG);
 
+            
             manager.saveGraph(nG);      //using the debugger found out that the edges are being stored here within the graph manager
+            
+
             Debug.WriteLine(manager.Graphs[0].edges.Count());       //showing correct number of edges within output as well
             Debug.WriteLine(Graph_Manager.GetInstance().Graphs.IndexOf(nG)); //shows that the index is being incremented within the graph manager evert time a new graph is saved
                                                                              //updates the list of graphs whenever graph is saved
@@ -108,8 +113,7 @@ namespace M6LabSweng421
             bmL.Add(gb);            //adding graph bitmap to list of bitmap
 
 
-
-
+            
             clearCanvas();
 
 
@@ -158,6 +162,8 @@ namespace M6LabSweng421
                 if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
                 {
                     Graph selectedGraph = manager.Graphs[selectedIndex];
+                   
+
                     List<Edge> edges = selectedGraph.edges;
 
                     //draw new edges on bitmap
@@ -210,7 +216,8 @@ namespace M6LabSweng421
         {
             int k = 0;
             Graph nU = new Graph(k, edges);
-
+            
+            
             int selectedIndex = listBox1.SelectedIndex;
             if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
             {
@@ -288,10 +295,10 @@ namespace M6LabSweng421
             {
                 // Retrieve the selected graph from the list
                 Graph selectedGraph = manager.Graphs[selectedIndex];
-
+                int rID = manager.GetRecentID();
                 // Create a new graph object
                 Graph copiedGraph = new Graph(selectedGraph.ID, selectedGraph.edges);
-
+                Graph.incrementID();    //only update ID when adding to listBox
                 manager.Graphs.Add(copiedGraph);
 
                 //make a copy of the bitmap selected

@@ -106,7 +106,7 @@ namespace M6LabSweng421
     public class Graph
     {
 
-        private static int lastID = 0;
+        private static int lastID = 1;
         public int ID { get; set; }
         
         public List<Edge> edges { get; set; }
@@ -116,12 +116,25 @@ namespace M6LabSweng421
 
         public Graph(int ID,List<Edge> e ) 
         {
-            this.ID = ++lastID;
+            
+            this.ID = lastID;
             
             this.edges = e;
 
           
 
+        }
+
+        public int id
+        {
+            get { return ID; }
+            set { ID = value; }
+        
+        }
+
+        public static void incrementID()
+        {
+            lastID++;
         }
 
         public Bitmap CreateGraphBitmap()
@@ -198,7 +211,18 @@ namespace M6LabSweng421
             return instance;
         }
 
-       
+       public int GetRecentID()
+        {
+            if (graphs.Count > 0)
+            {
+                return graphs[graphs.Count - 1].ID;
+            }
+            else
+            {
+                // Handle case where no graphs are present
+                return -1; // or throw an exception, return a default value, etc.
+            }
+        }
 
 
         //add graph
