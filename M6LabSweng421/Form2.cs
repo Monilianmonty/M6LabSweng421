@@ -9,27 +9,27 @@ using System.Windows.Forms.VisualStyles;
 namespace M6LabSweng421
 {
 
-
+    
     public partial class Form2 : Form
     {
         private List<Vertex> vertices = new List<Vertex>(); //store vertices
         private List<Edge> edges = new List<Edge>(); //store edges
         private Graph_Manager manager;
         private List<Bitmap> bmL;
-        
 
 
-        public Form2()
+
+        public Form2(List<Bitmap> b)
         {
             InitializeComponent();
 
             manager = Graph_Manager.GetInstance();
-            
+
             this.MouseClick += Form1_MouseClick; //use mouseClick event
 
-            bmL = new List<Bitmap>();
+            this.bmL = b;
 
-           
+
 
         }
 
@@ -89,7 +89,7 @@ namespace M6LabSweng421
         private void button1_Click(object sender, EventArgs e)
         {
             int k = 0;
-            
+
             //saves the graphs current vertices and edges
             Graph nG = new Graph(k, edges);
             Graph.incrementID();    //only increment id when updating listBox
@@ -98,7 +98,7 @@ namespace M6LabSweng421
             Debug.WriteLine(Graph_Manager.GetInstance().Graphs);
 
             manager.saveGraph(nG);      //using the debugger found out that the edges are being stored here within the graph manager
-            
+
 
             Debug.WriteLine(manager.Graphs[0].edges.Count());       //showing correct number of edges within output as well
             Debug.WriteLine(Graph_Manager.GetInstance().Graphs.IndexOf(nG)); //shows that the index is being incremented within the graph manager evert time a new graph is saved
@@ -110,7 +110,7 @@ namespace M6LabSweng421
             bmL.Add(gb);            //adding graph bitmap to list of bitmap
 
 
-            
+
             clearCanvas();
 
 
@@ -125,7 +125,7 @@ namespace M6LabSweng421
         {
             vertices.Clear();
 
-            edges.Clear(); ;
+            edges.Clear(); 
 
             Invalidate();
         }
@@ -160,7 +160,7 @@ namespace M6LabSweng421
                 if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
                 {
                     Graph selectedGraph = manager.Graphs[selectedIndex];
-                   
+
 
                     List<Edge> edges = selectedGraph.edges;
 
@@ -199,12 +199,15 @@ namespace M6LabSweng421
             {
                 listBox1.Items.Add($"Graph {graph.ID}");
             }
-            
+
         }
 
 
 
-
+        public int GetSelectedIndex()
+        {
+            return listBox1.SelectedIndex;
+        }
 
 
 
@@ -214,8 +217,8 @@ namespace M6LabSweng421
         {
             int k = 0;
             Graph nU = new Graph(k, edges);
-            
-            
+
+
             int selectedIndex = listBox1.SelectedIndex;
 
             if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
@@ -237,7 +240,7 @@ namespace M6LabSweng421
 
         }
 
-        
+
 
         //creates graph based on whats picked in listbox
         private void button3_Click_1(object sender, EventArgs e)
@@ -293,9 +296,9 @@ namespace M6LabSweng421
             int selectedIndex = listBox1.SelectedIndex;
             if (selectedIndex >= 0 && selectedIndex < manager.Graphs.Count)
             {
-               
+
                 Graph selectedGraph = manager.Graphs[selectedIndex];
-                
+
 
 
                 // Create a new graph object
@@ -310,9 +313,18 @@ namespace M6LabSweng421
                 //add bitmap to bitmap list
                 bmL.Add(copyBitmap);
 
-                
+
                 UpdateGraphListBox();
             }
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
         }
     }
 }

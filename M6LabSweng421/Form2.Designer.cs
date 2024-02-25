@@ -125,6 +125,7 @@
             textBox4.Size = new Size(136, 23);
             textBox4.TabIndex = 13;
             textBox4.Text = "Please Draw Above Here";
+            textBox4.TextChanged += textBox4_TextChanged;
             // 
             // textBox5
             // 
@@ -133,6 +134,7 @@
             textBox5.Size = new Size(97, 23);
             textBox5.TabIndex = 14;
             textBox5.Text = "▲▲▲▲▲▲▲▲▲▲";
+            textBox5.TextChanged += textBox5_TextChanged;
             // 
             // button4
             // 
